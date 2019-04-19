@@ -61,13 +61,14 @@ test:
     - apk add ${PHPIZE_DEPS} && pecl install xdebug-beta && docker-php-ext-enable xdebug
     - curl -sS https://getcomposer.org/installer | php -- --no-ansi --install-dir /usr/local/bin/ --filename composer
     - cp -R tests/ phpunit.xml "${DOCROOT}"
-    - HOMEDIR: $(pwd)
+    - export HOMEDIR=$(pwd)
     - cd "${DOCROOT}"
     - composer --no-ansi install --dev
     - ./bin/migrate
   script:
-    - vendor/bin/phpunit -v --colors: never --coverage-text --coverage-html "${HOMEDIR}/coverage/" --log-junit "${HOMEDIR}/unittests.xml"
+    - vendor/bin/phpunit -v --colors never --coverage-text --coverage-html "${HOMEDIR}/coverage/" --log-junit "${HOMEDIR}/unittests.xml"
     - bin/migrate down
+  variables:
 
 release-image.prodction:
   <<: *build_docker_definition
