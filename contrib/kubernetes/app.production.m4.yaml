@@ -94,19 +94,10 @@ spec:
                   name: developers-db
             - name: DB_URL
               value: mysql://${DB_USER}:${DB_PASSWORD}@developers-mysql:3306/developers
-            - name: PHPCR_PASSWORD
-              value: admin
-            - name: PHPCR_USER
-              value: admin
-            - name: PHPCR_WORKSPACE
-              value: developers
             - name: RUNTIME
               value: development
-            - name: SYMFONY_ENV
-              value: dev
             - name: SYSTEM_APPUSER_NAME
-              value: appuser9
-            - name: VERSION_TAG
+              value: appuser
             - name: XDEBUG_ENABLED
               value: "1"
           image: m4ReleaseImage():m4ReleaseImageTag()
