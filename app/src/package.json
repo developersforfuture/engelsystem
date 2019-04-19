@@ -6,7 +6,7 @@
   "author": "https://github.com/engelsystem/engelsystem/contributors",
   "license": "GPL-2.0-only",
   "scripts": {
-    "build": "npm run -s build:clean && NODE_ENV=production run-p build:assets build:webpack",
+    "build": "yarn run -s build:clean && NODE_ENV=production run-p build:assets build:webpack",
     "build:clean": "rimraf public/assets",
     "build:assets": "node resources/assets/scripts/copyAssets.js",
     "build:webpack": "webpack",
@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "bootstrap": "^3",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "chart.js": "^2",
+    "core-js": "^2.6.5",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.11.2",
     "moment": "^2.8.2",

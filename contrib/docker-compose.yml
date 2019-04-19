@@ -1,18 +1,7 @@
-version: "3.6"
+version: "3"
 services:
-  nginx:
-    image: engelsystem-nginx
-    build:
-      context: ..
-      dockerfile: contrib/nginx/Dockerfile
-    ports:
-      - 5000:80
-    networks:
-      - internal
-    depends_on:
-      - engelsystem
   engelsystem:
-    image: engelsystem
+    image: registry.gitlab.com/developersforfuture/registry/engelsystem:latest
     build:
       context: ..
       dockerfile: contrib/Dockerfile

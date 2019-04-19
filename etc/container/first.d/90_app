@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+set -ex
+
+
+echo "+ + + Installation of tmp dir for ... + + +"
+if [[ -d /etc/nginx/data/tmp/client_temp ]]; then
+    echo "+ + + Creation of client_temp dir not needed + + +"
+else
+    echo "+ + + Create client_tmp + + +"
+    mkdir -p /etc/nginx/data/tmp/client_temp
+fi
+
+echo "+ + + Installation of proxy dir for ... + + +"
+if [[ -d /etc/nginx/data/proxy_temp ]]; then
+    echo "+ + + Creation of proxy_dir dir not needd + + +"
+else
+    echo "+ + + Create proxy_dir + + +"
+    mkdir -p /etc/nginx/data/proxy_temp
+fi
+
+
+chmod g+rwx -R ${APP_BASEDIR_SRC}/var
+chown ${SYSTEM_APPUSER_NAME}:${SYSTEM_APPUSER_NAME} -R ${APP_BASEDIR_SRC}/var
+
+chmod g+rwx -R ${APP_BASEDIR_TMP}
+chown ${SYSTEM_APPUSER_NAME}:${SYSTEM_APPUSER_NAME} -R ${APP_BASEDIR_TMP}

@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/froscon/php-track-web/alpine-node-builder:1.0.0 as node_builder
+FROM m4BaseContainerPath()/alpine-node-builder:1.0.0 as node_builder
 
 ENV NPM_CONFIG_CACHE /cache/npm
 
@@ -8,7 +8,7 @@ RUN yarn install
 COPY /app/src/resources/assets/ /app/src/resources/assets
 RUN yarn build
 
-FROM registry.gitlab.com/froscon/php-track-web/alpine-php7.2-builder:1.0.0 as composer_builder
+FROM m4BaseContainerPath()/alpine-php7.2-builder:1.0.0 as composer_builder
 
 ARG composer_cache_dir="/build_cache/composer/"
 ENV COMPOSER_HOME $composer_cache_dir
@@ -38,7 +38,7 @@ RUN apk update \
     /usr/local/bin/composer-install-wrapper.sh
 
 # Build the PHP container
-FROM registry.gitlab.com/froscon/php-track-web/alpine-php-fpm7.2-nginx:1.0.0
+FROM m4BaseContainerPath()/alpine-php-fpm7.2-nginx:1.0.0
 
 COPY / /
 COPY --from=node_builder /app/src/public/assets/ /app/src/public/assets
@@ -78,11 +78,11 @@ ENV TRUSTED_PROXIES 10.0.0.0/8,::ffff:10.0.0.0/8,\
                     ::1/128,fc00::/7,fec0::/10
 
 
-ENV VERSION_TAG 0.1.0
-LABEL image.name=engelsystem \
-      image.version=0.1.0 \
-      image.tag=registry.gitlab.com/developersforfuture/engelsystem/app-production \
+ENV VERSION_TAG m4ProjectVersion()
+LABEL image.name=m4ProjectName() \
+      image.version=m4ProjectVersion() \
+      image.tag=m4ReleaseImage() \
       image.scm.commit=$commit \
-      image.scm.url=git@github.com:developersforfuture/engelsystem.git \
+      image.scm.url=m4GitOriginUrl() \
       image.author="Maximilian Berghoff <maximilian.berghoff@gmx.de>"
 
