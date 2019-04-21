@@ -43,7 +43,7 @@ build-image.ci:
     RUNTIME: 'ci'
 
 test:
-  image: ${CONTAINER_IMAGE}-ci:$[CI_COMMIT_REF_NAME}
+  image: ${CONTAINER_IMAGE}-ci:${VERSION_TAG}
   stage: test
   services:
     - mariadb:10.2
@@ -68,7 +68,6 @@ test:
   script:
     - vendor/bin/phpunit -v --colors never --coverage-text --coverage-html "${HOMEDIR}/coverage/" --log-junit "${HOMEDIR}/unittests.xml"
     - bin/migrate down
-  variables:
 
 release-image.prodction:
   <<: *build_docker_definition
